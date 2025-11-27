@@ -1,3 +1,4 @@
+
 import AllProducts from '@/component/product/AllProducts'
 
 export default async function Page() {

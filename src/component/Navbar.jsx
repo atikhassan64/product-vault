@@ -8,7 +8,6 @@ import userIcon from '../app/user-icon.png'
 export default function Navbar() {
 
     const { data: session } = useSession();
-    console.log(session)
     const navLinks = <>
         <li><Link href='/'>Home</Link></li>
         <li><Link href='/all-product'>All Product</Link></li>

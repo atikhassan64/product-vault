@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 export default function ManageProductTable({ events: initialEvents }) {
 
     const [events, setEvents] = useState(initialEvents || []);
+    console.log(events)
     
 
     useEffect(() => {
@@ -77,7 +78,6 @@ export default function ManageProductTable({ events: initialEvents }) {
                     <tbody>
                         {events.map((event) => (
                             <tr key={event._id}>
-                                {console.log("id is :", events._id)}
                                 <td>{event.title}</td>
                                 <td>{event.date}</td>
                                 <td>{event.price}</td>

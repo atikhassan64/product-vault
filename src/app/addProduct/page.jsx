@@ -36,7 +36,6 @@ export default function page() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 e.target.reset();
                 setStartDate(new Date()); // date reset
                 toast.success('Product is added')
