@@ -4,7 +4,7 @@
 
 // export default function DetailPage() {
 //   const params = useParams();
-//   const { id } = params;
+//   const { id } = params; 
 
 //   const [item, setItem] = useState(null);
 
@@ -27,32 +27,31 @@
 // }
 
 
+// "use client";
+// import { useParams } from "next/navigation";
+// import { useEffect, useState } from "react";
 
-"use client";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+// export default function DetailPage() {
+//   const { id } = useParams();
 
-export default function DetailPage() {
-  const { id } = useParams();
+//   const [item, setItem] = useState(null);
 
-  const [item, setItem] = useState(null);
+//   useEffect(() => {
+//     if (!id) return;
 
-  useEffect(() => {
-    if (!id) return;
+//     fetch(`/api/event/${id}`)
+//       .then(res => res.json())
+//       .then(data => setItem(data))
+//       .catch(err => console.error(err));
+//   }, [id]);
 
-    fetch(`/api/event/${id}`)
-      .then(res => res.json())
-      .then(data => setItem(data))
-      .catch(err => console.error(err));
-  }, [id]);
+//   if (!item) return <p>Loading...</p>;
 
-  if (!item) return <p>Loading...</p>;
-
-  return (
-    <div className="max-w-[800px] mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-4">{item.title}</h1>
-      <img src={item.thumbnailImage} alt={item.title} className="mb-4" />
-      <p>{item.eventDescription}</p>
-    </div>
-  );
-}
+//   return (
+//     <div className="max-w-[800px] mx-auto py-10">
+//       <h1 className="text-3xl font-bold mb-4">{item.title}</h1>
+//       <img src={item.thumbnailImage} alt={item.title} className="mb-4" />
+//       <p>{item.eventDescription}</p>
+//     </div>
+//   );
+// }

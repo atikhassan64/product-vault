@@ -1,17 +1,17 @@
 
-// import AllProducts from '@/component/product/AllProducts'
+import AllProducts from '@/component/product/AllProducts'
 
-// export default async function Page() {
-//   // Server-side fetch
-//   const res = await fetch("http://localhost:3000/api/event");
-//   const events = await res.json();
+export default async function Page() {
+  // Server-side fetch
+  const res = await fetch("http://localhost:3000/api/event");
+  const events = await res.json();
 
-//   return (
-//     <div>
-//       <AllProducts events={events} />
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <AllProducts events={events} />
+    </div>
+  );
+}
 
 
 // import AllProducts from '@/component/product/AllProducts';
@@ -32,21 +32,3 @@
 //     </div>
 //   );
 // }
-
-
-import AllProducts from '@/component/product/AllProducts'
-
-export default async function Page() {
-
-  const res = await fetch("/api/event", {
-    cache: "no-store", // always fetch fresh data
-  });
-
-  const events = await res.json();
-
-  return (
-    <div>
-      <AllProducts events={events} />
-    </div>
-  );
-}

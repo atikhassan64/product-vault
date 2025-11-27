@@ -63,7 +63,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+// import Link from "next/link";
 
 export default function AllProducts({ events: initialEvents }) {
   const [search, setSearch] = useState("");
@@ -131,12 +131,11 @@ export default function AllProducts({ events: initialEvents }) {
               <p className="font-semibold mb-4">{item.price}</p>
 
               {/* Details Button */}
-              <Link
-                href={`/detail-product/${item._id}`}
-                className="mt-auto btn bg-blue-500 text-white py-2 rounded text-center"
+              {/* href={`/detail-product/${item._id}`} */}
+              {/* <Link className="mt-auto btn bg-blue-500 text-white py-2 rounded text-center"
               >
                 Details
-              </Link>
+              </Link> */}
             </div>
           ))
         ) : (
