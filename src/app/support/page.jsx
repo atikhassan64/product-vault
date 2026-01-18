@@ -115,7 +115,7 @@ export default function SupportPage() {
             <p className="text-gray-600 mb-4">Learn the basics of using Product Vault</p>
             <button 
               onClick={() => setActiveTab('faq')}
-              className="btn bg-blue-500 text-white hover:bg-blue-600"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View FAQ
             </button>
@@ -127,7 +127,7 @@ export default function SupportPage() {
             <p className="text-gray-600 mb-4">Get personalized help from our team</p>
             <button 
               onClick={() => setActiveTab('contact')}
-              className="btn bg-green-500 text-white hover:bg-green-600"
+              className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-teal-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Contact Us
             </button>
@@ -139,7 +139,7 @@ export default function SupportPage() {
             <p className="text-gray-600 mb-4">Troubleshoot common issues</p>
             <button 
               onClick={() => setActiveTab('technical')}
-              className="btn bg-purple-500 text-white hover:bg-purple-600"
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Get Help
             </button>
@@ -205,8 +205,8 @@ export default function SupportPage() {
                   <div className="flex flex-wrap gap-2 mb-6">
                     <button
                       onClick={() => setSearchQuery('')}
-                      className={`px-4 py-2 rounded-full text-sm font-medium ${
-                        searchQuery === '' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        searchQuery === '' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
                       }`}
                     >
                       All
@@ -215,8 +215,8 @@ export default function SupportPage() {
                       <button
                         key={category}
                         onClick={() => setSearchQuery(category)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium ${
-                          searchQuery === category ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                          searchQuery === category ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
                         }`}
                       >
                         {category}
@@ -321,7 +321,7 @@ export default function SupportPage() {
 
                     <button
                       type="submit"
-                      className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors"
+                      className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                     >
                       Submit Support Request
                     </button>
@@ -331,7 +331,7 @@ export default function SupportPage() {
                     <div className="text-4xl mb-4">🔒</div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-4">Login Required</h3>
                     <p className="text-gray-600 mb-6">Please login to submit a support request</p>
-                    <Link href="/login" className="btn bg-blue-500 text-white hover:bg-blue-600">
+                    <Link href="/login" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                       Login
                     </Link>
                   </div>
@@ -391,7 +391,7 @@ export default function SupportPage() {
                       </p>
                       <button 
                         onClick={() => setActiveTab('contact')}
-                        className="btn bg-blue-500 text-white hover:bg-blue-600 btn-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg"
                       >
                         Contact Support
                       </button>

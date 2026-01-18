@@ -56,15 +56,15 @@ export default function Items() {
                                             }}
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-lg font-bold mb-2">{product.title}</h3>
-                                            <p className="text-gray-500 mb-4 line-clamp-3">{product.shortDescription}</p>
+                                            <h3 className="text-lg font-bold mb-2 truncate">{product.title}</h3>
+                                            <p className="text-gray-500 mb-4 truncate">{product.shortDescription}</p>
                                             <div className="flex justify-between items-center">
                                                 <span className="text-indigo-600 font-bold text-lg">{product.price}</span>
                                                 <Link 
                                                     href={`/detail-product/${product.id || product._id}`}
-                                                    className="text-blue-500 hover:text-blue-700 font-medium text-sm"
+                                                    className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-sm shadow-lg hover:shadow-xl"
                                                 >
-                                                    View Details →
+                                                    View Details
                                                 </Link>
                                             </div>
                                         </div>
@@ -80,8 +80,8 @@ export default function Items() {
                                             className="w-full h-48 object-cover"
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-lg font-bold mb-2">Laptop</h3>
-                                            <p className="text-gray-500 mb-4">A portable computer with a built-in screen, keyboard, and battery, perfect for work, study, and entertainment anywhere.</p>
+                                            <h3 className="text-lg font-bold mb-2 truncate">Laptop</h3>
+                                            <p className="text-gray-500 mb-4 truncate">A portable computer with a built-in screen, keyboard, and battery, perfect for work, study, and entertainment anywhere.</p>
                                             <span className="text-indigo-600 font-bold text-lg">$29.99</span>
                                         </div>
                                     </div>
@@ -93,8 +93,8 @@ export default function Items() {
                                             className="w-full h-48 object-cover"
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-lg font-bold mb-2">Smartphone</h3>
-                                            <p className="text-gray-500 mb-4">A handheld device that combines calling, internet access, and apps in one compact gadget for everyday connectivity.</p>
+                                            <h3 className="text-lg font-bold mb-2 truncate">Smartphone</h3>
+                                            <p className="text-gray-500 mb-4 truncate">A handheld device that combines calling, internet access, and apps in one compact gadget for everyday connectivity.</p>
                                             <span className="text-indigo-600 font-bold text-lg">$39.99</span>
                                         </div>
                                     </div>
@@ -106,8 +106,8 @@ export default function Items() {
                                             className="w-full h-48 object-cover"
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-lg font-bold mb-2">Wireless Headphones</h3>
-                                            <p className="text-gray-500 mb-4">High-quality headphones with Bluetooth connectivity, providing freedom from wires and immersive sound experience.</p>
+                                            <h3 className="text-lg font-bold mb-2 truncate">Wireless Headphones</h3>
+                                            <p className="text-gray-500 mb-4 truncate">High-quality headphones with Bluetooth connectivity, providing freedom from wires and immersive sound experience.</p>
                                             <span className="text-indigo-600 font-bold text-lg">$49.99</span>
                                         </div>
                                     </div>
@@ -119,8 +119,8 @@ export default function Items() {
                                             className="w-full h-48 object-cover"
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-lg font-bold mb-2">Smartwatch</h3>
-                                            <p className="text-gray-500 mb-4">A wearable gadget that tracks your fitness, shows notifications, and keeps you connected right on your wrist.</p>
+                                            <h3 className="text-lg font-bold mb-2 truncate">Smartwatch</h3>
+                                            <p className="text-gray-500 mb-4 truncate">A wearable gadget that tracks your fitness, shows notifications, and keeps you connected right on your wrist.</p>
                                             <span className="text-indigo-600 font-bold text-lg">$59.99</span>
                                         </div>
                                     </div>
@@ -132,7 +132,7 @@ export default function Items() {
                     <div className="text-center mt-12">
                         <Link 
                             href="/all-product"
-                            className="inline-block bg-blue-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+                            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl inline-block"
                         >
                             View All Products
                         </Link>

@@ -192,7 +192,7 @@ export default function CategoriesPage() {
                   
                   <Link 
                     href={`/detail-product/${product.id || product._id}`}
-                    className="btn bg-blue-500 text-white hover:bg-blue-600 w-full btn-sm"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-center shadow-lg hover:shadow-xl"
                   >
                     View Details
                   </Link>
@@ -207,7 +207,7 @@ export default function CategoriesPage() {
             <p className="text-gray-500 mb-8">No products match the selected category</p>
             <button 
               onClick={() => setSelectedCategory('all')}
-              className="btn bg-blue-500 text-white hover:bg-blue-600"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               View All Products
             </button>

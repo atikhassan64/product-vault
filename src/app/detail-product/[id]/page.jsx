@@ -163,13 +163,13 @@ export default function ProductDetailPage() {
           <div className="flex gap-4 justify-center">
             <Link 
               href="/all-product"
-              className="btn bg-blue-500 text-white hover:bg-blue-600"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Browse Products
             </Link>
             <button 
               onClick={() => router.back()}
-              className="btn btn-outline"
+              className="px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl border border-gray-200"
             >
               Go Back
             </button>
@@ -219,7 +219,7 @@ export default function ProductDetailPage() {
               <div className="absolute top-4 right-4 flex gap-2">
                 <button 
                   onClick={handleShare}
-                  className="btn btn-circle btn-sm bg-white/80 hover:bg-white border-0"
+                  className="w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm"
                   title="Share product"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,7 +228,7 @@ export default function ProductDetailPage() {
                 </button>
                 <button 
                   onClick={handleAddToWishlist}
-                  className="btn btn-circle btn-sm bg-white/80 hover:bg-white border-0"
+                  className="w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm"
                   title="Add to wishlist"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -270,7 +270,7 @@ export default function ProductDetailPage() {
               <div className="flex gap-3">
                 <button 
                   onClick={handleContactSeller}
-                  className="btn bg-blue-500 text-white hover:bg-blue-600 flex-1"
+                  className="flex-1 px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -279,7 +279,7 @@ export default function ProductDetailPage() {
                 </button>
                 <button 
                   onClick={handleAddToWishlist}
-                  className="btn btn-outline"
+                  className="px-4 py-4 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl border border-gray-200 flex items-center justify-center"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -305,7 +305,7 @@ export default function ProductDetailPage() {
                         <p>{product.fullDescription}</p>
                         <button 
                           onClick={() => setShowFullDescription(false)}
-                          className="text-blue-500 hover:text-blue-600 font-medium mt-2"
+                          className="text-blue-500 hover:text-blue-600 font-medium mt-2 px-3 py-1 rounded-lg hover:bg-blue-50 transition-all duration-200"
                         >
                           Show less
                         </button>
@@ -315,7 +315,7 @@ export default function ProductDetailPage() {
                         <p>{product.fullDescription?.substring(0, 200)}...</p>
                         <button 
                           onClick={() => setShowFullDescription(true)}
-                          className="text-blue-500 hover:text-blue-600 font-medium mt-2"
+                          className="text-blue-500 hover:text-blue-600 font-medium mt-2 px-3 py-1 rounded-lg hover:bg-blue-50 transition-all duration-200"
                         >
                           Read more
                         </button>
@@ -351,7 +351,7 @@ export default function ProductDetailPage() {
             <div className="flex gap-4">
               <Link 
                 href="/all-product"
-                className="btn btn-outline flex-1"
+                className="flex-1 px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl border border-gray-200 flex items-center justify-center"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -360,7 +360,7 @@ export default function ProductDetailPage() {
               </Link>
               <button 
                 onClick={() => router.back()}
-                className="btn btn-outline"
+                className="px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-semibold rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Go Back
               </button>

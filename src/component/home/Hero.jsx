@@ -16,11 +16,16 @@ export default function HeroSection() {
           <div className="flex gap-4">
             <Link
               href="/all-product"
-              className="px-6 py-3 bg-white text-blue-600 font-semibold rounded shadow hover:bg-gray-100 transition"
+              className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-2xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Browse Products
             </Link>
-           
+            <Link
+              href="/register"
+              className="px-8 py-4 bg-white/20 text-white font-semibold rounded-2xl hover:bg-white/30 transition-all duration-200 backdrop-blur-sm border border-white/30"
+            >
+              Get Started Free
+            </Link>
           </div>
         </div>
 

@@ -137,7 +137,7 @@ export default function BlogPage() {
                   </div>
                   <Link 
                     href={`/blog/${featuredPost.id}`}
-                    className="btn bg-blue-500 text-white hover:bg-blue-600"
+                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                   >
                     Read More
                   </Link>
@@ -178,10 +178,10 @@ export default function BlogPage() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   selectedCategory === category
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
                 }`}
               >
                 {category === 'all' ? 'All' : category}
@@ -258,7 +258,7 @@ export default function BlogPage() {
                 setSearchQuery('');
                 setSelectedCategory('all');
               }}
-              className="btn bg-blue-500 text-white hover:bg-blue-600"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Clear Filters
             </button>
@@ -275,7 +275,7 @@ export default function BlogPage() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl">
               Subscribe
             </button>
           </div>

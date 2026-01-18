@@ -97,13 +97,13 @@ export default function FAQ() {
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="/support"
-                                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                             >
                                 Contact Support
                             </a>
                             <a
                                 href="/blog"
-                                className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                                className="px-8 py-4 bg-white text-gray-700 font-semibold rounded-2xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl border border-gray-200"
                             >
                                 Visit Help Center
                             </a>

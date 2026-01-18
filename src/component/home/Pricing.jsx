@@ -19,7 +19,7 @@ export default function Pricing() {
             ],
             popular: false,
             buttonText: "Get Started",
-            buttonStyle: "bg-gray-900 text-white hover:bg-gray-800"
+            buttonStyle: "px-6 py-4 bg-white text-gray-900 font-semibold rounded-2xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
         },
         {
             name: "Professional",
@@ -37,7 +37,7 @@ export default function Pricing() {
             ],
             popular: true,
             buttonText: "Start Free Trial",
-            buttonStyle: "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700"
+            buttonStyle: "px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
         },
         {
             name: "Enterprise",
@@ -55,7 +55,7 @@ export default function Pricing() {
             ],
             popular: false,
             buttonText: "Contact Sales",
-            buttonStyle: "bg-gray-900 text-white hover:bg-gray-800"
+            buttonStyle: "px-6 py-4 bg-white text-gray-900 font-semibold rounded-2xl hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
         }
     ];
 
@@ -110,7 +110,7 @@ export default function Pricing() {
 
                                 <Link
                                     href="/register"
-                                    className={`w-full block text-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${plan.buttonStyle}`}
+                                    className={`w-full block text-center ${plan.buttonStyle}`}
                                 >
                                     {plan.buttonText}
                                 </Link>
