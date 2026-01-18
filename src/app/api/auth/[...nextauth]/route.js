@@ -4,13 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { getUserByEmail } from "@/lib/users";
 
-const handler = NextAuth({
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-    }),
-    CredentialsProvider({
+// Build providers array conditionally
+const providers = [
+  CredentialsProvider({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -51,7 +47,18 @@ const handler = NextAuth({
         }
       }
     })
-  ],
+];
+
+// Add Google provider only if credentials are available
+if (process.env.GOOGLE_ID && process.env.GOOGLE_SECRET) {
+  providers.unshift(GoogleProvider({
+    clientId: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+  }));
+}
+
+const handler = NextAuth({
+  providers,
   session: {
     strategy: "jwt",
   },
@@ -73,8 +80,8 @@ const handler = NextAuth({
     signIn: "/login",
     signUp: "/register",
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development", // Enable debug in development
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development-only",
+  debug: true, // Enable debug to see errors
 });
 
 export { handler as GET, handler as POST };
