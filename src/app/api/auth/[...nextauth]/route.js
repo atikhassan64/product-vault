@@ -80,8 +80,8 @@ const handler = NextAuth({
     signIn: "/login",
     signUp: "/register",
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development-only",
-  debug: true, // Enable debug to see errors
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: false, // Disable debug in production
 });
 
 export { handler as GET, handler as POST };
