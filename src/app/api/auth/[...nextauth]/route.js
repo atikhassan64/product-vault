@@ -1,103 +1,80 @@
-// import NextAuth from "next-auth";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import bcrypt from "bcryptjs";
-
-// export const authOptions = {
-//   providers: [
-//     // GOOGLE LOGIN
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_ID,
-//       clientSecret: process.env.GOOGLE_SECRET,
-//     }),
-
-//     // CREDENTIALS LOGIN
-//     CredentialsProvider({
-//       name: "Credentials",
-
-//       credentials: {
-//         email: { label: "Email", type: "email" },
-//         password: { label: "Password", type: "password" },
-//       },
-
-//       async authorize(credentials) {
-//         // Demo User (Later you can use your database)
-//         const demoUser = {
-//           id: "1",
-//           name: "Atik Hassan",
-//           email: "atik@gmail.com",
-//           password: "$2b$10$WjycIKQZqlwgeTt/KvGRGei/3eqe4Pf55TiuGQ2HntnexIQYwzWQW", // hashed: 123456
-//         };
-
-//         if (credentials.email !== demoUser.email) {
-//           throw new Error("User not found");
-//         }
-
-//         const isMatch = await bcrypt.compare(
-//           credentials.password,
-//           demoUser.password
-//         );
-
-//         if (!isMatch) throw new Error("Incorrect password");
-
-//         return demoUser;
-//       },
-//     }),
-//   ],
-
-//   callbacks: {
-//     async redirect() {
-//       return "/";
-//     },
-//   },
-
-//   session: {
-//     strategy: "jwt",
-//   },
-
-//   secret: process.env.NEXTAUTH_SECRET,
-// };
-
-// const handler = NextAuth(authOptions);
-
-// export { handler as GET, handler as POST };
-
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
+import { getUserByEmail } from "@/lib/users";
 
-const authOptions = {
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        const client = await clientPromise;
-        const db = client.db("productVault");
-        const user = await db.collection("users").findOne({ email: credentials.email });
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            console.log("Missing credentials");
+            return null;
+          }
 
-        if (!user) throw new Error("No user found");
+          // Find user in our database
+          const user = getUserByEmail(credentials.email);
+          
+          if (!user) {
+            console.log("User not found:", credentials.email);
+            return null;
+          }
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isValid) throw new Error("Invalid password");
+          // Check password
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+          
+          if (!isPasswordValid) {
+            console.log("Invalid password for user:", credentials.email);
+            return null;
+          }
 
-        return { id: user._id.toString(), name: user.name, email: user.email };
-      },
-    }),
+          console.log("User authenticated successfully:", user.email);
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          };
+        } catch (error) {
+          console.error("Authorization error:", error);
+          return null;
+        }
+      }
+    })
   ],
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+    signUp: "/register",
+  },
   secret: process.env.NEXTAUTH_SECRET,
-};
+  debug: process.env.NODE_ENV === "development", // Enable debug in development
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

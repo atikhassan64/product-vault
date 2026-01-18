@@ -22,34 +22,34 @@ export default function ManageProductTable({ events: initialEvents }) {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!",
-        }).then(async (result) => {  // ✅ CHANGED: make async for fetch/await
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                try { // ✅ CHANGED: added try/catch for error handling
-                    const res = await fetch(`/api/event/${id}`, {  // ✅ CHANGED: await fetch
+                try {
+                    const res = await fetch(`/api/products/${id}`, {
                         method: "DELETE",
                     });
 
-                    if (!res.ok) { // ✅ CHANGED: check HTTP status
-                        throw new Error("Failed to delete event");
+                    if (!res.ok) {
+                        throw new Error("Failed to delete product");
                     }
 
-                    const data = await res.json(); // ✅ CHANGED: await res.json()
+                    const data = await res.json();
 
                     if (data.deletedCount > 0) {
-                        setEvents(prev => prev.filter(event => event._id !== id)); // ✅ CHANGED: safer state update
+                        setEvents(prev => prev.filter(event => event._id !== id && event.id !== id));
                         Swal.fire({
                             title: "Deleted!",
-                            text: "Your file has been deleted.",
+                            text: "Your product has been deleted.",
                             icon: "success",
                         });
                     } else {
                         Swal.fire({
                             title: "Failed!",
-                            text: "Event could not be deleted.",
+                            text: "Product could not be deleted.",
                             icon: "error",
                         });
                     }
-                } catch (error) { // ✅ CHANGED: catch network or server errors
+                } catch (error) {
                     console.error(error);
                     Swal.fire({
                         title: "Error!",
@@ -77,14 +77,14 @@ export default function ManageProductTable({ events: initialEvents }) {
 
                     <tbody>
                         {events.map((event) => (
-                            <tr key={event._id}>
+                            <tr key={event._id || event.id}>
                                 <td>{event.title}</td>
                                 <td>{event.date}</td>
                                 <td>{event.price}</td>
                                 <td>{event.eventType}</td>
                                 <td>
                                     <button
-                                        onClick={() => handleDelete(event._id, event.source)}
+                                        onClick={() => handleDelete(event._id || event.id, event.source)}
                                         className="btn bg-red-500 text-white"
                                     >
                                         Delete
@@ -97,7 +97,7 @@ export default function ManageProductTable({ events: initialEvents }) {
 
                 {events.length === 0 && (
                     <p className="text-center text-xl font-semibold py-10 text-gray-500">
-                        No Events Yet
+                        No Products Yet
                     </p>
                 )}
             </div>

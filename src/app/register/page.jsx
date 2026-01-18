@@ -2,16 +2,36 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterPage() {
     const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setError("");
+        setLoading(true);
+
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            setLoading(false);
+            return;
+        }
+
+        // Validate password strength
+        if (password.length < 6) {
+            setError("Password must be at least 6 characters long");
+            setLoading(false);
+            return;
+        }
 
         try {
             const res = await fetch("/api/auth/register", {
@@ -20,16 +40,38 @@ export default function RegisterPage() {
                 body: JSON.stringify({ name, email, password }),
             });
 
+            const data = await res.json();
+
             if (res.ok) {
-                router.push("/login");
+                setSuccess(true);
+                setTimeout(() => {
+                    router.push("/login");
+                }, 2000);
             } else {
-                const data = await res.json();
                 setError(data.message || "Something went wrong");
             }
         } catch (err) {
-            setError(err.message);
+            setError("Network error. Please try again.");
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (success) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+                <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 text-center">
+                    <div className="text-green-500 text-6xl mb-4">✓</div>
+                    <h2 className="text-2xl font-bold text-green-600 mb-4">
+                        Registration Successful!
+                    </h2>
+                    <p className="text-gray-600 mb-4">
+                        Your account has been created successfully. Redirecting to login...
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -39,7 +81,9 @@ export default function RegisterPage() {
                 </h2>
 
                 {error && (
-                    <p className="text-center mb-4 text-red-500 font-medium">{error}</p>
+                    <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                        {error}
+                    </div>
                 )}
 
                 <form onSubmit={handleRegister} className="space-y-4">
@@ -52,6 +96,7 @@ export default function RegisterPage() {
                             required
                             onChange={(e) => setName(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#29B467]"
+                            disabled={loading}
                         />
                     </div>
 
@@ -64,6 +109,7 @@ export default function RegisterPage() {
                             required
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#29B467]"
+                            disabled={loading}
                         />
                     </div>
 
@@ -71,27 +117,42 @@ export default function RegisterPage() {
                         <label className="block mb-1 font-semibold">Password</label>
                         <input
                             type="password"
-                            placeholder="Your password"
+                            placeholder="Your password (min 6 characters)"
                             value={password}
                             required
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#29B467]"
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block mb-1 font-semibold">Confirm Password</label>
+                        <input
+                            type="password"
+                            placeholder="Confirm your password"
+                            value={confirmPassword}
+                            required
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#29B467]"
+                            disabled={loading}
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-[#29B467] text-white py-2 rounded-lg font-semibold hover:bg-[#218c53] transition-colors"
+                        disabled={loading}
+                        className="w-full bg-[#29B467] text-white py-2 rounded-lg font-semibold hover:bg-[#218c53] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Register
+                        {loading ? "Creating Account..." : "Register"}
                     </button>
                 </form>
 
                 <p className="text-center text-sm mt-4">
                     Already have an account?{" "}
-                    <a href="/login" className="text-[#29B467] font-semibold">
+                    <Link href="/login" className="text-[#29B467] font-semibold">
                         Login
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>
