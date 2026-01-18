@@ -55,10 +55,12 @@ body{
 }
 
 /* Mobile dropdown specific positioning */
-.dropdown.lg\\:hidden .dropdown-content {
-  transform-origin: top left;
-  left: 0;
-  right: auto;
+@media (max-width: 1023px) {
+  .dropdown .dropdown-content {
+    transform-origin: top left;
+    left: 0;
+    right: auto;
+  }
 }
 
 /* Ensure dropdown doesn't overflow on mobile */
@@ -67,11 +69,6 @@ body{
     width: calc(100vw - 1rem);
     max-width: 320px;
     left: -0.5rem;
-  }
-  
-  .dropdown.lg\\:hidden .dropdown-content {
-    left: -0.5rem;
-    right: auto;
   }
 }
 
