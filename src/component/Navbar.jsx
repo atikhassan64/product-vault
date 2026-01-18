@@ -2,12 +2,14 @@
 
 import { signOut, useSession } from "next-auth/react";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 export default function Navbar() {
     const { data: session, status } = useSession();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const pathname = usePathname();
 
     useEffect(() => {
         setMounted(true);
@@ -62,27 +64,45 @@ export default function Navbar() {
         { href: '/analytics', label: 'Analytics', icon: '📊' }
     ];
 
+    // Function to check if a link is active
+    const isActiveLink = (href) => {
+        if (href === '/') {
+            return pathname === '/';
+        }
+        return pathname.startsWith(href);
+    };
+
     return (
         <div className='bg-white shadow-lg border-b sticky top-0 z-50'>
-            <div className="navbar max-w-7xl mx-auto px-4">
-                {/* Logo and Brand */}
-                <div className="navbar-start">
+            <div className="flex items-center justify-between max-w-7xl mx-auto px-4 py-3">
+                {/* Logo and Mobile Menu */}
+                <div className="flex items-center space-x-4">
+                    {/* Mobile Menu Button */}
                     <div className="dropdown lg:hidden">
-                        <div tabIndex={0} role="button" className="btn btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+                        <div tabIndex={0} role="button" className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> 
                             </svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52 border">
                             {navLinks.map((link) => (
                                 <li key={link.href}>
-                                    <Link href={link.href} className="text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+                                    <Link 
+                                        href={link.href} 
+                                        className={`rounded-lg px-3 py-2 transition-all duration-200 ${
+                                            isActiveLink(link.href)
+                                                ? 'bg-blue-100 text-blue-700 font-semibold'
+                                                : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                                        }`}
+                                    >
                                         {link.label}
                                     </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
+
+                    {/* Logo */}
                     <Link href="/" className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                             <span className="text-white font-bold text-lg">PV</span>
@@ -93,24 +113,30 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                {/* Navigation Links */}
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 space-x-2">
+                {/* Navigation Links - Desktop */}
+                <div className="hidden lg:flex flex-1 justify-center">
+                    <nav className="flex items-center space-x-2">
                         {navLinks.map((link) => (
-                            <li key={link.href}>
-                                <Link 
-                                    href={link.href} 
-                                    className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg px-4 py-2 transition-all duration-200 font-medium"
-                                >
-                                    {link.label}
-                                </Link>
-                            </li>
+                            <Link 
+                                key={link.href}
+                                href={link.href} 
+                                className={`rounded-lg px-4 py-2 transition-all duration-200 font-medium relative ${
+                                    isActiveLink(link.href)
+                                        ? 'text-blue-600 bg-blue-50 font-semibold'
+                                        : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                                }`}
+                            >
+                                {link.label}
+                                {isActiveLink(link.href) && (
+                                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full"></div>
+                                )}
+                            </Link>
                         ))}
-                    </ul>
+                    </nav>
                 </div>
 
                 {/* User Section */}
-                <div className="navbar-end">
+                <div className="flex items-center space-x-3">
                     {status === "loading" ? (
                         <div className="loading loading-spinner loading-sm text-blue-500"></div>
                     ) : session ? (
@@ -140,7 +166,11 @@ export default function Navbar() {
                                         <li key={link.href}>
                                             <Link 
                                                 href={link.href} 
-                                                className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg py-2"
+                                                className={`flex items-center space-x-3 rounded-lg py-2 transition-all duration-200 ${
+                                                    isActiveLink(link.href)
+                                                        ? 'bg-blue-100 text-blue-700 font-semibold'
+                                                        : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                                                }`}
                                             >
                                                 <span className="text-lg">{link.icon}</span>
                                                 <span>{link.label}</span>
@@ -152,21 +182,21 @@ export default function Navbar() {
 
                             {/* Logout Button */}
                             <button 
-                                className="btn btn-outline btn-sm hover:bg-red-500 hover:border-red-500 hover:text-white transition-all duration-200" 
+                                className="px-4 py-2 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 flex items-center space-x-2" 
                                 onClick={handleLogout}
                                 disabled={isLoggingOut}
                             >
                                 {isLoggingOut ? (
                                     <>
                                         <span className="loading loading-spinner loading-xs"></span>
-                                        Logging out...
+                                        <span>Logging out...</span>
                                     </>
                                 ) : (
                                     <>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
-                                        Logout
+                                        <span>Logout</span>
                                     </>
                                 )}
                             </button>
@@ -175,13 +205,13 @@ export default function Navbar() {
                         <div className="flex items-center space-x-3">
                             <Link 
                                 href="/login" 
-                                className="btn btn-ghost btn-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                                className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-all duration-200"
                             >
                                 Login
                             </Link>
                             <Link 
-                                className="btn btn-primary btn-sm bg-gradient-to-r from-blue-500 to-purple-600 border-none hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200" 
                                 href="/register"
+                                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200"
                             >
                                 Register
                             </Link>
