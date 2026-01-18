@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { users } from "../[...nextauth]/route.js";
+import { getUserByEmail } from "@/lib/users";
 
 export async function POST(req) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req) {
     }
 
     // Find user
-    const user = users.find(u => u.email === email);
+    const user = getUserByEmail(email);
     if (!user) {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
