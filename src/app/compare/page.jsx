@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function ComparePage() {
+function CompareContent() {
   const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -196,7 +196,7 @@ export default function ComparePage() {
             <div className="text-center p-4 bg-green-50 rounded-lg">
               <h3 className="font-semibold text-green-800 mb-2">Lowest Price</h3>
               <p className="text-2xl font-bold text-green-600">
-                {Math.min(...products.map(p => parseFloat(p.price.replace('$', ''))))}
+                ${Math.min(...products.map(p => parseFloat(p.price.replace('$', ''))))}
               </p>
             </div>
             <div className="text-center p-4 bg-blue-50 rounded-lg">
@@ -213,5 +213,17 @@ export default function ComparePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    }>
+      <CompareContent />
+    </Suspense>
   );
 }
