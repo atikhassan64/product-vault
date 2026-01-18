@@ -8,8 +8,11 @@ export default function AllProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const fetchProducts = async () => {
       try {
         const res = await fetch("/api/products");
@@ -29,12 +32,21 @@ export default function AllProductsPage() {
     fetchProducts();
   }, []);
 
+  // Show loading state until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="loading loading-spinner loading-lg text-blue-500"></div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="loading loading-spinner loading-lg text-[#29B467]"></div>
-          <p className="mt-4 text-gray-600">Loading products...</p>
+          <div className="loading loading-spinner loading-lg text-blue-500"></div>
+          <p className="mt-4 text-gray-600 font-medium">Loading products...</p>
         </div>
       </div>
     );
@@ -42,13 +54,14 @@ export default function AllProductsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Error</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center bg-white p-8 rounded-2xl shadow-lg max-w-md">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Products</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button 
             onClick={() => window.location.reload()}
-            className="btn bg-[#29B467] text-white hover:bg-[#218c53]"
+            className="btn bg-blue-500 text-white hover:bg-blue-600 px-6 py-2 rounded-lg font-semibold transition-colors"
           >
             Try Again
           </button>
@@ -58,7 +71,7 @@ export default function AllProductsPage() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <AllProducts events={products} />
     </div>
   );
