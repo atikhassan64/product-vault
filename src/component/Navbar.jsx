@@ -145,8 +145,8 @@ export default function Navbar() {
                     ) : session ? (
                         <div className="flex items-center space-x-2 sm:space-x-3">
                             {/* User Dropdown */}
-                            <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="flex items-center justify-center p-1 rounded-full hover:bg-gray-100 transition-all duration-200">
+                            <div className="dropdown dropdown-end relative">
+                                <div tabIndex={0} role="button" className="flex items-center justify-center p-1 rounded-full hover:bg-gray-100 transition-all duration-200 cursor-pointer">
                                     <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full ring-2 ring-blue-200 hover:ring-blue-400 transition-all duration-200 overflow-hidden">
                                         <img
                                             alt="User Avatar"
@@ -155,11 +155,11 @@ export default function Navbar() {
                                         />
                                     </div>
                                 </div>
-                                <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-white rounded-xl w-56 sm:w-64 border">
+                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-xl shadow-xl border border-gray-200 w-64 sm:w-72 p-0 mt-2 absolute right-0 top-full z-50 max-h-96 overflow-y-auto">
                                     {/* User Info */}
-                                    <li className="px-4 py-3 border-b border-gray-100">
+                                    <li className="px-4 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
                                         <div className="flex items-center space-x-3">
-                                            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-blue-200">
+                                            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-200 flex-shrink-0">
                                                 <img
                                                     alt="User Avatar"
                                                     src={session.user?.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(session.user?.name || 'User')}&background=3b82f6&color=fff`}
@@ -167,51 +167,62 @@ export default function Navbar() {
                                                 />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="font-semibold text-gray-800 truncate">{session.user?.name || 'User'}</p>
-                                                <p className="text-sm text-gray-500 truncate">{session.user?.email}</p>
+                                                <p className="font-semibold text-gray-800 truncate text-sm">{session.user?.name || 'User'}</p>
+                                                <p className="text-xs text-gray-500 truncate">{session.user?.email}</p>
+                                                <div className="flex items-center mt-1">
+                                                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                                                    <span className="text-xs text-green-600 font-medium">Online</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
                                     
                                     {/* User Menu Links */}
-                                    {userMenuLinks.map((link) => (
-                                        <li key={link.href}>
-                                            <Link 
-                                                href={link.href} 
-                                                className={`flex items-center space-x-3 rounded-lg py-2 px-3 transition-all duration-200 ${
-                                                    isActiveLink(link.href)
-                                                        ? 'bg-blue-100 text-blue-700 font-semibold'
-                                                        : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
-                                                }`}
-                                            >
-                                                <span className="text-lg">{link.icon}</span>
-                                                <span className="text-sm">{link.label}</span>
-                                            </Link>
-                                        </li>
-                                    ))}
+                                    <div className="py-2">
+                                        {userMenuLinks.map((link) => (
+                                            <li key={link.href} className="px-2">
+                                                <Link 
+                                                    href={link.href} 
+                                                    className={`flex items-center space-x-3 rounded-lg py-3 px-3 mx-1 transition-all duration-200 text-sm ${
+                                                        isActiveLink(link.href)
+                                                            ? 'bg-blue-100 text-blue-700 font-semibold shadow-sm'
+                                                            : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                                                    }`}
+                                                >
+                                                    <span className="text-lg flex-shrink-0">{link.icon}</span>
+                                                    <span className="flex-1">{link.label}</span>
+                                                    {isActiveLink(link.href) && (
+                                                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                                    )}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </div>
+
+                                    {/* Logout Section */}
+                                    <div className="border-t border-gray-100 p-2">
+                                        <button 
+                                            className="w-full flex items-center justify-center space-x-2 px-3 py-3 text-red-600 font-medium rounded-lg hover:bg-red-50 hover:text-red-700 transition-all duration-200 text-sm mx-1" 
+                                            onClick={handleLogout}
+                                            disabled={isLoggingOut}
+                                        >
+                                            {isLoggingOut ? (
+                                                <>
+                                                    <span className="loading loading-spinner loading-xs"></span>
+                                                    <span>Logging out...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                    </svg>
+                                                    <span>Sign Out</span>
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
                                 </ul>
                             </div>
-
-                            {/* Logout Button - Hidden on small screens, shown in dropdown */}
-                            <button 
-                                className="hidden sm:flex items-center space-x-2 px-3 lg:px-4 py-2 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm" 
-                                onClick={handleLogout}
-                                disabled={isLoggingOut}
-                            >
-                                {isLoggingOut ? (
-                                    <>
-                                        <span className="loading loading-spinner loading-xs"></span>
-                                        <span className="hidden lg:inline">Logging out...</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                        </svg>
-                                        <span className="hidden lg:inline">Logout</span>
-                                    </>
-                                )}
-                            </button>
                         </div>
                     ) : (
                         <div className="flex items-center space-x-2 sm:space-x-3">
@@ -233,31 +244,6 @@ export default function Navbar() {
                     )}
                 </div>
             </div>
-
-            {/* Mobile User Menu for Logout (when logged in) */}
-            {session && (
-                <div className="sm:hidden border-t border-gray-100 px-4 py-2">
-                    <button 
-                        className="w-full flex items-center justify-center space-x-2 px-4 py-2 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-500 hover:text-white transition-all duration-200 text-sm" 
-                        onClick={handleLogout}
-                        disabled={isLoggingOut}
-                    >
-                        {isLoggingOut ? (
-                            <>
-                                <span className="loading loading-spinner loading-xs"></span>
-                                <span>Logging out...</span>
-                            </>
-                        ) : (
-                            <>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
-                                <span>Logout</span>
-                            </>
-                        )}
-                    </button>
-                </div>
-            )}
         </div>
     );
 }

@@ -31,3 +31,36 @@ body{
     display: none;
   }
 }
+
+/* Dropdown positioning fixes */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 50;
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95) translateY(-10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown:focus-within .dropdown-content,
+.dropdown.dropdown-open .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+/* Ensure dropdown doesn't overflow on mobile */
+@media (max-width: 640px) {
+  .dropdown-content {
+    right: -1rem;
+    width: calc(100vw - 2rem);
+    max-width: 280px;
+  }
+}
