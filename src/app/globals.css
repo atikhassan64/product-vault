@@ -40,7 +40,6 @@ body{
 .dropdown-content {
   position: absolute;
   z-index: 50;
-  transform-origin: top right;
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95) translateY(-10px);
@@ -48,16 +47,26 @@ body{
 }
 
 .dropdown:focus-within .dropdown-content,
-.dropdown.dropdown-open .dropdown-content {
+.dropdown.dropdown-open .dropdown-content,
+.dropdown-content:focus-within {
   opacity: 1;
   visibility: visible;
   transform: scale(1) translateY(0);
 }
 
-/* Mobile dropdown specific positioning */
+/* Profile dropdown (right side) positioning */
+.dropdown-end .dropdown-content {
+  transform-origin: top right;
+  top: 100%;
+  right: 0;
+  left: auto;
+}
+
+/* Mobile dropdown (left side) positioning */
 @media (max-width: 1023px) {
-  .dropdown .dropdown-content {
+  .dropdown:not(.dropdown-end) .dropdown-content {
     transform-origin: top left;
+    top: 100%;
     left: 0;
     right: auto;
   }
@@ -68,7 +77,15 @@ body{
   .dropdown-content {
     width: calc(100vw - 1rem);
     max-width: 320px;
+  }
+  
+  .dropdown:not(.dropdown-end) .dropdown-content {
     left: -0.5rem;
+  }
+  
+  .dropdown-end .dropdown-content {
+    right: -0.5rem;
+    left: auto;
   }
 }
 
@@ -80,4 +97,13 @@ body{
     display: flex;
     align-items: center;
   }
+}
+
+/* Ensure profile dropdown is always visible when active */
+.dropdown-end:focus-within .dropdown-content,
+.dropdown-end.dropdown-open .dropdown-content {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) translateY(0) !important;
 }

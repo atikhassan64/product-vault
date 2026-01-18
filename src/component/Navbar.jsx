@@ -265,7 +265,7 @@ export default function Navbar() {
                         <div className="flex items-center space-x-2 sm:space-x-3">
                             {/* User Dropdown */}
                             <div className="dropdown dropdown-end relative">
-                                <div tabIndex={0} role="button" className="flex items-center justify-center p-1 rounded-full hover:bg-gray-100 transition-all duration-200 cursor-pointer">
+                                <div tabIndex={0} role="button" className="flex items-center justify-center p-1 rounded-full hover:bg-gray-100 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300">
                                     <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full ring-2 ring-blue-200 hover:ring-blue-400 transition-all duration-200 overflow-hidden">
                                         <img
                                             alt="User Avatar"
@@ -274,7 +274,7 @@ export default function Navbar() {
                                         />
                                     </div>
                                 </div>
-                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-xl shadow-xl border border-gray-200 w-64 sm:w-72 p-0 mt-2 absolute right-0 top-full z-50 max-h-96 overflow-y-auto">
+                                <ul tabIndex={0} className="dropdown-content menu bg-white rounded-xl shadow-xl border border-gray-200 w-64 sm:w-72 p-0 mt-2 absolute right-0 top-full z-50 max-h-96 overflow-y-auto focus:outline-none">
                                     {/* User Info */}
                                     <li className="px-4 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
                                         <div className="flex items-center space-x-3">
@@ -302,7 +302,7 @@ export default function Navbar() {
                                             <li key={link.href} className="px-2">
                                                 <Link 
                                                     href={link.href} 
-                                                    className={`flex items-center space-x-3 rounded-lg py-3 px-3 mx-1 transition-all duration-200 text-sm ${
+                                                    className={`flex items-center space-x-3 rounded-lg py-3 px-3 mx-1 transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 ${
                                                         isActiveLink(link.href)
                                                             ? 'bg-blue-100 text-blue-700 font-semibold shadow-sm'
                                                             : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
@@ -321,7 +321,7 @@ export default function Navbar() {
                                     {/* Logout Section */}
                                     <div className="border-t border-gray-100 p-2">
                                         <button 
-                                            className="w-full flex items-center justify-center space-x-2 px-3 py-3 text-red-600 font-medium rounded-lg hover:bg-red-50 hover:text-red-700 transition-all duration-200 text-sm mx-1" 
+                                            className="w-full flex items-center justify-center space-x-2 px-3 py-3 text-red-600 font-medium rounded-lg hover:bg-red-50 hover:text-red-700 transition-all duration-200 text-sm mx-1 focus:outline-none focus:ring-2 focus:ring-red-300" 
                                             onClick={handleLogout}
                                             disabled={isLoggingOut}
                                         >
