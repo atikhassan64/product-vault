@@ -21,3 +21,13 @@ body{
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Custom responsive breakpoint for extra small screens */
+@media (min-width: 475px) {
+  .xs\:block {
+    display: block;
+  }
+  .xs\:hidden {
+    display: none;
+  }
+}
